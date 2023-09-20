@@ -48,6 +48,11 @@ const Sidebar = () => {
           href: '/bittle-fleet-control',
         },
         {
+          type: 'link',
+          text: 'GenEI Events',
+          href: '/builder-madness',
+        },
+        {
           type: 'section',
           text: 'Getting Started',
           expanded: true,

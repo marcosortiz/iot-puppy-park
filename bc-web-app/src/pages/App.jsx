@@ -20,6 +20,7 @@ import Dashboard from './Dashboard';
 import MyBittles from './MyBittles';
 import SingleBittle from './SingleBittle';
 import BittleFleetControl from './BittleFleetControl';
+import BuilderMadness from './BuilderMadness';
 import GettingStarted from './GettingStarted';
 import SetupGuide from './SetupGuide';
 import DataUploader from './DataUploader';
@@ -63,6 +64,7 @@ const App = ({ signOut, user }) => {
         <Route path="/my-bittles/" element={<MyBittles />} />
         <Route path="/my-bittles/:DeviceId" element={<SingleBittle />} />
         <Route path="/bittle-fleet-control" element={<BittleFleetControl />} />
+        <Route path="/builder-madness" element={<BuilderMadness />} />
         <Route path="/getting-started" element={<GettingStarted />} />
         {/* <Route path="/setup-guide" element={<SetupGuide />} /> */}
         <Route path="/data-uploader" element={<DataUploader />} />
