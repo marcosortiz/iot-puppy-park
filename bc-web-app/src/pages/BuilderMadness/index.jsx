@@ -27,7 +27,11 @@ import {
   ContentLayout,
   Flashbar,
   Badge,
+  Box,
+  ColumnLayout,
 } from '@cloudscape-design/components';
+
+import { CounterLink } from '../Dashboard/common-components';
 
 // Amplify
 import { API, graphqlOperation, Amplify, PubSub, Auth, Hub } from 'aws-amplify';
@@ -61,10 +65,23 @@ const BuilderMadness = () => {
   const { DeviceId } = useParams();
   const [singleBittle, setSingleBittle] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [fireEventsCounter, setFireEventsCounter] = useState(0);
+  const [pipeEventsCounter, setPipeEventsCounter] = useState(0);
+  const [co2EventsCounter, setCo2EventsCounter] = useState(0);
   let nextId = 0;
-  let _this = this;
 
   function handleMessage(data) {
+    console.log(data.value.event);
+    if (data.value.event === 'fire') {
+      setFireEventsCounter(c => c + 1);
+      console.log('pipe');
+    } else if (data.value.event === 'pipe') {
+      setPipeEventsCounter(c => c + 1);
+    } else if(data.value.event === 'co2') {
+      setCo2EventsCounter(c => c + 1);
+    }
+
+
     setMessages(messages =>
       [
         ...messages,
@@ -204,7 +221,76 @@ const BuilderMadness = () => {
         >
           <SpaceBetween size="l">
             <BittleDeviceDetailsTable isInProgress />
-            <Flashbar items={messages} />
+            <Box margin="xxl" padding={{ vertical: '', horizontal: 'l' }}>
+        <Container
+          className="custom-dashboard-container"
+          header={
+            <Header
+              variant="h2"
+              // description="Viewing realtime data for your Bittle fleet."
+            >
+              Event Counters
+            </Header>
+          }
+        >
+          <ColumnLayout columns="3" variant="text-grid">
+            <div>
+              <Box variant="awsui-key-label">Fire Events</Box>
+              {/* <CounterLink>4</CounterLink> */}
+              <CounterLink>{fireEventsCounter}</CounterLink>
+            </div>
+            <div>
+              <Box variant="awsui-key-label">Pipe Events</Box>
+              <CounterLink>{pipeEventsCounter}</CounterLink>
+            </div>
+            <div>
+              <Box variant="awsui-key-label">CO2 Events</Box>
+              <CounterLink>{co2EventsCounter}</CounterLink>
+            </div>
+          </ColumnLayout>
+        </Container>
+      </Box>
+
+
+
+
+
+
+
+
+          <Container
+              className="custom-dashboard-container"
+              header={
+                <Header
+                  variant="h2"
+                  description="Event details will show up here as they happen in real time."
+
+                  actions={
+                    <SpaceBetween
+                      direction="horizontal"
+                      size="xs"
+                    >
+                      <Button
+                        onClick={() =>
+                          setMessages(messages => [])
+                        }>
+                        Clear Logs
+                      </Button>
+                    </SpaceBetween>
+                  }
+                >
+                  Events Log
+                </Header>
+              }
+            >
+              <Flashbar items={messages} />
+          </Container>
+
+
+
+
+
+            {/* <Flashbar items={messages} /> */}
             {/* {mbevents.map(d => (<Flashbar items={mbevents} />))}  */}
           </SpaceBetween>
         </ContentLayout>
