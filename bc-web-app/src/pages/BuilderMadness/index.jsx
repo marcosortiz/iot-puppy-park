@@ -97,6 +97,22 @@ const BuilderMadness = () => {
         }
       ]
     );
+
+    setMessages(messages =>
+      [
+        ...messages,
+        {
+          header: `Requesting AGEIS assistance`,
+          type: "info",
+          content: (
+            <>
+              How to handle {data.value.event} events?
+            </>
+          ),
+          id: nextId++
+        }
+      ]
+    );
   }
 
   function handleResp(data) {
@@ -104,7 +120,7 @@ const BuilderMadness = () => {
       [
         ...messages,
         {
-          header: `Bedrock response received at ${new Date().toLocaleString()}`,
+          header: `AGEIS response received at ${new Date().toLocaleString()}`,
           type: "info",
           content: (
             <>
@@ -146,6 +162,44 @@ const BuilderMadness = () => {
           content: (
             <>
               message: <Badge>{data.value.message || ' unknown'}</Badge>
+            </>
+          ),
+          id: nextId++
+        }
+      ]
+    );
+  }
+
+  function handleGlobalDogMessage(data) {
+    setMessages(messages =>
+      [
+        ...messages,
+        {
+          header: `AGEIS sending the message to the edge ${new Date().toLocaleString()}`,
+          type: "success",
+          content: (
+            <>
+              message: <Badge>{data.value.message || ' unknown'}</Badge>
+            </>
+          ),
+          id: nextId++
+        }
+      ]
+    );
+  }
+
+
+
+  function handleCommandMessage(data) {
+    setMessages(messages =>
+      [
+        ...messages,
+        {
+          header: `AGEIS sending the command to the edge ${new Date().toLocaleString()}`,
+          type: "success",
+          content: (
+            <>
+              message: <Badge>{data.value.msg || ' unknown'}</Badge>
             </>
           ),
           id: nextId++
@@ -196,11 +250,23 @@ const BuilderMadness = () => {
       error: (error) => console.error(error),
       complete: () => console.log('Done'),
     });
+    const sub5 = PubSub.subscribe(`bm/cmd`).subscribe({
+      next: (data) => handleCommandMessage(data),
+      error: (error) => console.error(error),
+      complete: () => console.log('Done'),
+    });
+    const sub6 = PubSub.subscribe(`bittles-global/sub`).subscribe({
+      next: (data) => handleGlobalDogMessage(data),
+      error: (error) => console.error(error),
+      complete: () => console.log('Done'),
+    });
     return () => {     
       sub.unsubscribe();
       sub2.unsubscribe();
       sub3.unsubscribe();
       sub4.unsubscribe();
+      sub5.unsubscribe();
+      sub6.unsubscribe();
     };
   }, []);
 
@@ -285,13 +351,6 @@ const BuilderMadness = () => {
             >
               <Flashbar items={messages} />
           </Container>
-
-
-
-
-
-            {/* <Flashbar items={messages} /> */}
-            {/* {mbevents.map(d => (<Flashbar items={mbevents} />))}  */}
           </SpaceBetween>
         </ContentLayout>
       }
