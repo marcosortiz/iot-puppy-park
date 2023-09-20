@@ -99,6 +99,42 @@ const BuilderMadness = () => {
     );
   }
 
+  function handleDog1Message(data) {
+    setMessages(messages =>
+      [
+        ...messages,
+        {
+          header: `Sending message to dog1 at ${new Date().toLocaleString()}`,
+          type: "success",
+          content: (
+            <>
+              message: {data.value.message || ' unknown'}
+            </>
+          ),
+          id: nextId++
+        }
+      ]
+    );
+  }
+
+  function handleDog2Message(data) {
+    setMessages(messages =>
+      [
+        ...messages,
+        {
+          header: `Sending message to dog2 at ${new Date().toLocaleString()}`,
+          type: "success",
+          content: (
+            <>
+              message: {data.value.message || ' unknown'}
+            </>
+          ),
+          id: nextId++
+        }
+      ]
+    );
+  }
+
   // Fetch data for one bittle by 'DeviceId' specified in browser URL via useParams hook
   const fetchSingleBittle = async () => {
     try {
@@ -122,18 +158,30 @@ const BuilderMadness = () => {
   // Subscribe to the specific topic relating to the current bittle on the page on page load
   useEffect(() => {
     const sub = PubSub.subscribe(`bm/event`).subscribe({
-      next: (data) => handleMessage(data), // console.log('Message received', data)
+      next: (data) => handleMessage(data),
       error: (error) => console.error(error),
       complete: () => console.log('Done'),
     });
     const sub2 = PubSub.subscribe(`bm/resp`).subscribe({
-      next: (data) => handleResp(data), // console.log('Message received', data)
+      next: (data) => handleResp(data),
+      error: (error) => console.error(error),
+      complete: () => console.log('Done'),
+    });
+    const sub3 = PubSub.subscribe(`Bittle1/sub`).subscribe({
+      next: (data) => handleDog1Message(data),
+      error: (error) => console.error(error),
+      complete: () => console.log('Done'),
+    });
+    const sub4 = PubSub.subscribe(`Bittle2/sub`).subscribe({
+      next: (data) => handleDog2Message(data),
       error: (error) => console.error(error),
       complete: () => console.log('Done'),
     });
     return () => {     
       sub.unsubscribe();
       sub2.unsubscribe();
+      sub3.unsubscribe();
+      sub4.unsubscribe();
     };
   }, []);
 
