@@ -26,6 +26,7 @@ import {
   SpaceBetween,
   ContentLayout,
   Flashbar,
+  Badge,
 } from '@cloudscape-design/components';
 
 // Amplify
@@ -72,7 +73,7 @@ const BuilderMadness = () => {
           type: "error",
           content: (
             <>
-              event: {data.value.event || ' unknown'} | source: {data.value.dog || ' unknown'} | location" {data.value.location || 'unknown'}
+              event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>{data.value.dog || ' unknown'}</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
             </>
           ),
           id: nextId++
@@ -90,7 +91,8 @@ const BuilderMadness = () => {
           type: "info",
           content: (
             <>
-              event: {data.value.event || ' unknown'} | source: {data.value.dog || ' unknown'} | location: {data.value.location || 'unknown'} | msg: {data.value.msg || 'unknown'}
+              event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>{data.value.dog || ' unknown'}</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
+              <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p>
             </>
           ),
           id: nextId++
@@ -108,7 +110,7 @@ const BuilderMadness = () => {
           type: "success",
           content: (
             <>
-              message: {data.value.message || ' unknown'}
+              message: <Badge>{data.value.message || ' unknown'}</Badge>
             </>
           ),
           id: nextId++
@@ -126,7 +128,7 @@ const BuilderMadness = () => {
           type: "success",
           content: (
             <>
-              message: {data.value.message || ' unknown'}
+              message: <Badge>{data.value.message || ' unknown'}</Badge>
             </>
           ),
           id: nextId++
