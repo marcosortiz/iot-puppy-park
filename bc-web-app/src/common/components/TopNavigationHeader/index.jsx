@@ -27,7 +27,7 @@ const TopNavigationHeader = ({ user }) => {
         identity={{
           href: '/',
           // Your Company Name
-          title: `Bittle Control`,
+          title: `AGEIS`,
           logo: {
             src: logo,
             alt: 'Service',

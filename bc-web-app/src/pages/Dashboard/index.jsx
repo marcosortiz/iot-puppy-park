@@ -151,7 +151,8 @@ const Content = ({ user }) => {
                   fontWeight="light"
                   color="inherit"
                 >
-                  Ready to get the day started?
+                  Ready to use Actionable Generative Edge Intellicence System (AGEIS)?
+                  <p>We continuously monitor live edge events and promptly trigger AGEIS for expedited recommended actions.</p>
                 </Box>
               </div>
             </Box>

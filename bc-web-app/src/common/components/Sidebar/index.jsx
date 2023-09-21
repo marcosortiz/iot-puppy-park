@@ -12,7 +12,7 @@ const Sidebar = () => {
       // TODO - Make active link work for navigation
       // activeHref={activeHref}
       activeHref={location.pathname}
-      header={{ text: 'Bittle Control', href: '/' }}
+      header={{ text: 'AGEIS', href: '/' }}
       onFollow={(event) => {
         if (!event.detail.external) {
           event.preventDefault();
@@ -49,7 +49,7 @@ const Sidebar = () => {
         },
         {
           type: 'link',
-          text: 'GenEI Events',
+          text: 'AGEIS',
           href: '/builder-madness',
         },
         {

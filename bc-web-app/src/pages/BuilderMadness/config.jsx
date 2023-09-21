@@ -81,7 +81,7 @@ export const PageHeader = ({ buttons, singleBittle }) => {
       }
     >
       {/* Reference 'singleBittle' prop passed by SingleBittle component in index.jsx */}
-      GenEI Events
+      Actionable Generative Edge Intelligent System (AGEIS)
     </Header>
   );
 };

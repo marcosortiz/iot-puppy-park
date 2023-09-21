@@ -106,7 +106,8 @@ const BuilderMadness = () => {
           type: "info",
           content: (
             <>
-              How to handle {data.value.event} events?
+              {/* How to handle {data.value.event} events? */}
+              Offer containment and safety recommendations and assist with incident analysis for {data.value.event} events.
             </>
           ),
           id: nextId++
@@ -375,9 +376,9 @@ const BittleDeviceDetailsTable = ({
   return (
     <Container
       header={
-        <Header variant="h2" description="Edge Events will show up here as they happen">
+        <Header variant="h2" description="We continuously monitor live edge events and promptly trigger AGEIS for expedited recommended actions.">
           {/* Table Title */}
-          Edge Events
+          AGEIS Live Monitoring
         </Header>
       }
     >
@@ -390,12 +391,8 @@ export const Breadcrumbs = ({ singleBittle }) => (
   <BreadcrumbGroup
     items={[
       {
-        text: ' Bittle Control',
+        text: ' AGEIS',
         href: '/dashboard',
-      },
-      {
-        text: 'My Bittles',
-        href: '/my-bittles',
       },
       {
         text: 'GenEI Events',

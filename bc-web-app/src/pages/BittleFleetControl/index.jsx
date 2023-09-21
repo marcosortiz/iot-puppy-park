@@ -154,7 +154,7 @@ export const Breadcrumbs = ({ singleBittle }) => (
   <BreadcrumbGroup
     items={[
       {
-        text: ' Bittle Control',
+        text: ' AGEIS',
         href: '/dashboard',
       },
       {

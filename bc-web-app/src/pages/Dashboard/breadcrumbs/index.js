@@ -1,6 +1,6 @@
 export const resourcesBreadcrumbs = [
   {
-    text: 'Bittle Control',
+    text: 'AGEIS',
     href: '/dashboard',
   },
   {
