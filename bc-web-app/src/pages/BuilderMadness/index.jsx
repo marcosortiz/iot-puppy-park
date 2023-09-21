@@ -124,26 +124,73 @@ const BuilderMadness = () => {
     );
   }
 
+  function takeAction(event) {
+    if(event === 'pipe') {
+      PubSub.publish('bittles-global/sub', { message: 'khi' });
+    } else if (event === 'co2') {
+      PubSub.publish('bittles-global/sub', { message: 'kck' });
+    }
+  }
+
   function handleResp(data) {
-    setMessages(messages =>
-      [
-        {
-          header: `[${new Date().toLocaleString()}] AGEIS response received`,
-          type: "info",
-          content: (
-            <>
-              event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
-              {/* <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p> */}
-              <p><h2>AGEIS Recommendations</h2></p>
-              <p><h3>{data.value.msg || 'unknown'}</h3></p>
-              <br/><Icon name="angle-up" size="large"/>
-            </>
-          ),
-          id: nextId++
-        },
-        ...messages
-      ]
-    );
+    if (data.value.event === 'fire') {
+      setMessages(messages =>
+        [
+          {
+            header: `[${new Date().toLocaleString()}] AGEIS response received`,
+            type: "info",
+            content: (
+              <>
+                event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
+                {/* <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p> */}
+                <p><h2>AGEIS Recommendations</h2></p>
+                <p><h3>{data.value.msg || 'unknown'}</h3></p>
+                <p>
+                  <strong>Sources:</strong>
+                  <ul>
+                    <li>https://www.osha.gov/sites/default/files/2019-03/fireprotection.pdf</li>
+                    <li>https://www.oilspillprevention.org/-/media/Oil-Spill-Prevention/spillprevention/r-and-d/inland/ngl-lpg-response-guide.pdf</li>
+                  </ul>
+                </p>
+                <br/><Icon name="angle-up" size="large"/>
+              </>
+            ),
+            id: nextId++
+          },
+          ...messages
+        ]
+      );
+    } else {
+      setMessages(messages =>
+        [
+          {
+            header: `[${new Date().toLocaleString()}] AGEIS response received`,
+            type: "info",
+            content: (
+              <>
+                event: <Badge color="blue">{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
+                {/* <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p> */}
+                <p><h2>AGEIS Recommendations</h2></p>
+                <p><h3>{data.value.msg || 'unknown'}</h3></p>
+                <p>
+                  <strong>Sources:</strong>
+                  <ul>
+                    <li>https://www.osha.gov/sites/default/files/2019-03/fireprotection.pdf</li>
+                    <li>https://www.oilspillprevention.org/-/media/Oil-Spill-Prevention/spillprevention/r-and-d/inland/ngl-lpg-response-guide.pdf</li>
+                  </ul>
+                </p>
+                <br/><Icon name="angle-up" size="large"/>
+              </>
+            ),
+            action: <Button onClick={() => takeAction(data.value.event)}> Take Recommended Action</Button>,
+            id: nextId++
+          },
+          ...messages
+        ]
+      );
+    }
+
+
   }
 
   function handleDog1Message(data) {
