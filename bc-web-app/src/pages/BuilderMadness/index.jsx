@@ -86,11 +86,13 @@ const BuilderMadness = () => {
       [
         ...messages,
         {
-          header: `Event detected at ${new Date().toLocaleString()}`,
+          header: `[${new Date().toLocaleString()}] Event detected `,
           type: "error",
           content: (
             <>
-              event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>{data.value.dog || ' unknown'}</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
+              event: <Badge color="blue">{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
+              <p><h1>{data.value.event} event detected!</h1></p>
+              <br/><Icon name="angle-down" size="large"/>
             </>
           ),
           id: nextId++
@@ -102,12 +104,13 @@ const BuilderMadness = () => {
       [
         ...messages,
         {
-          header: `Requesting AGEIS assistance`,
+          header: `[${new Date().toLocaleString()}] Requesting AGEIS assistance`,
           type: "info",
           content: (
             <>
               {/* How to handle {data.value.event} events? */}
               Offer containment and safety recommendations and assist with incident analysis for {data.value.event} events.
+              <br/><Icon name="angle-down" size="large"/>
             </>
           ),
           id: nextId++
@@ -121,12 +124,13 @@ const BuilderMadness = () => {
       [
         ...messages,
         {
-          header: `AGEIS response received at ${new Date().toLocaleString()}`,
+          header: `[${new Date().toLocaleString()}] AGEIS response received`,
           type: "info",
           content: (
             <>
               event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>{data.value.dog || ' unknown'}</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
               <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p>
+              <br/><Icon name="angle-down" size="large"/>
             </>
           ),
           id: nextId++
@@ -140,11 +144,12 @@ const BuilderMadness = () => {
       [
         ...messages,
         {
-          header: `Sending message to dog1 at ${new Date().toLocaleString()}`,
+          header: `[${new Date().toLocaleString()}] Sending message to dog1`,
           type: "success",
           content: (
             <>
               message: <Badge>{data.value.message || ' unknown'}</Badge>
+              <br/><Icon name="angle-down" size="large"/>
             </>
           ),
           id: nextId++
@@ -158,11 +163,12 @@ const BuilderMadness = () => {
       [
         ...messages,
         {
-          header: `Sending message to dog2 at ${new Date().toLocaleString()}`,
+          header: `[${new Date().toLocaleString()}] Sending message to dog2`,
           type: "success",
           content: (
             <>
-              message: <Badge>{data.value.message || ' unknown'}</Badge>
+              message: <Badge color="blue">{data.value.message || ' unknown'}</Badge>
+              <br/><Icon name="angle-down" size="large"/>
             </>
           ),
           id: nextId++
@@ -172,15 +178,18 @@ const BuilderMadness = () => {
   }
 
   function handleGlobalDogMessage(data) {
+    console.log(data);
     setMessages(messages =>
       [
         ...messages,
         {
-          header: `AGEIS sending the message to the edge ${new Date().toLocaleString()}`,
+          header: `[${new Date().toLocaleString()}] AGEIS is sending a command to the edge`,
           type: "success",
           content: (
             <>
-              message: <Badge>{data.value.message || ' unknown'}</Badge>
+              {/* message: <Badge color="blue">{data.value.message || ' unknown'}</Badge> */}
+              <p><h1>Deploying remote autonomous mitigation systems!</h1></p>
+              <br/><Icon name="angle-down" size="large"/>
             </>
           ),
           id: nextId++
@@ -196,11 +205,13 @@ const BuilderMadness = () => {
       [
         ...messages,
         {
-          header: `AGEIS sending the command to the edge ${new Date().toLocaleString()}`,
+          header: `[${new Date().toLocaleString()}] AGEIS is sending a command to the edge`,
           type: "success",
           content: (
             <>
-              message: <Badge>{data.value.msg || ' unknown'}</Badge>
+              {/* message: <Badge color="blue">{data.value.msg || ' unknown'}</Badge> */}
+              <p><h1>Activating ventilation system!</h1></p>
+              <br/><Icon name="angle-down" size="large"/>
             </>
           ),
           id: nextId++
