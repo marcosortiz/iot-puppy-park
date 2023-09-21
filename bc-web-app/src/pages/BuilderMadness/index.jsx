@@ -81,40 +81,45 @@ const BuilderMadness = () => {
       setCo2EventsCounter(c => c + 1);
     }
 
+    let eventStr = data.value.event;
+    if(eventStr === 'pipe') {
+      eventStr = 'Pipe leak';
+    }
 
     setMessages(messages =>
       [
-        ...messages,
         {
           header: `[${new Date().toLocaleString()}] Event detected `,
           type: "error",
           content: (
             <>
               event: <Badge color="blue">{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
-              <p><h1>{data.value.event} event detected!</h1></p>
-              <br/><Icon name="angle-down" size="large"/>
+              <p><h1>{eventStr} event detected!</h1></p>
+              <br/><Icon name="angle-up" size="large"/>
             </>
           ),
           id: nextId++
-        }
+        },
+        ...messages
       ]
     );
 
     setMessages(messages =>
       [
-        ...messages,
         {
           header: `[${new Date().toLocaleString()}] Requesting AGEIS assistance`,
           type: "info",
           content: (
             <>
               {/* How to handle {data.value.event} events? */}
-              Offer containment and safety recommendations and assist with incident analysis for {data.value.event} events.
-              <br/><Icon name="angle-down" size="large"/>
+              {/* Offer containment and safety recommendations and assist with incident analysis for {data.value.event} events. */}
+              <h1>Requesting AGEIS assistance for {data.value.event || ' unknown'} event.</h1>
+              <br/><Icon name="angle-up" size="large"/>
             </>
           ),
           id: nextId++
-        }
+        },
+        ...messages
       ]
     );
   }
@@ -122,19 +127,21 @@ const BuilderMadness = () => {
   function handleResp(data) {
     setMessages(messages =>
       [
-        ...messages,
         {
           header: `[${new Date().toLocaleString()}] AGEIS response received`,
           type: "info",
           content: (
             <>
-              event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>{data.value.dog || ' unknown'}</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
-              <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p>
-              <br/><Icon name="angle-down" size="large"/>
+              event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
+              {/* <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p> */}
+              <p><h2>AGEIS Recommendations</h2></p>
+              <p><h3>{data.value.msg || 'unknown'}</h3></p>
+              <br/><Icon name="angle-up" size="large"/>
             </>
           ),
           id: nextId++
-        }
+        },
+        ...messages
       ]
     );
   }
@@ -142,18 +149,18 @@ const BuilderMadness = () => {
   function handleDog1Message(data) {
     setMessages(messages =>
       [
-        ...messages,
         {
           header: `[${new Date().toLocaleString()}] Sending message to dog1`,
           type: "success",
           content: (
             <>
               message: <Badge>{data.value.message || ' unknown'}</Badge>
-              <br/><Icon name="angle-down" size="large"/>
+              <br/><Icon name="angle-up" size="large"/>
             </>
           ),
           id: nextId++
-        }
+        },
+        ...messages,
       ]
     );
   }
@@ -161,18 +168,18 @@ const BuilderMadness = () => {
   function handleDog2Message(data) {
     setMessages(messages =>
       [
-        ...messages,
         {
           header: `[${new Date().toLocaleString()}] Sending message to dog2`,
           type: "success",
           content: (
             <>
               message: <Badge color="blue">{data.value.message || ' unknown'}</Badge>
-              <br/><Icon name="angle-down" size="large"/>
+              <br/><Icon name="angle-up" size="large"/>
             </>
           ),
           id: nextId++
-        }
+        },
+        ...messages
       ]
     );
   }
@@ -181,7 +188,6 @@ const BuilderMadness = () => {
     console.log(data);
     setMessages(messages =>
       [
-        ...messages,
         {
           header: `[${new Date().toLocaleString()}] AGEIS is sending a command to the edge`,
           type: "success",
@@ -189,11 +195,12 @@ const BuilderMadness = () => {
             <>
               {/* message: <Badge color="blue">{data.value.message || ' unknown'}</Badge> */}
               <p><h1>Deploying remote autonomous mitigation systems!</h1></p>
-              <br/><Icon name="angle-down" size="large"/>
+              <br/><Icon name="angle-up" size="large"/>
             </>
           ),
           id: nextId++
-        }
+        },
+        ...messages
       ]
     );
   }
@@ -203,7 +210,6 @@ const BuilderMadness = () => {
   function handleCommandMessage(data) {
     setMessages(messages =>
       [
-        ...messages,
         {
           header: `[${new Date().toLocaleString()}] AGEIS is sending a command to the edge`,
           type: "success",
@@ -211,11 +217,12 @@ const BuilderMadness = () => {
             <>
               {/* message: <Badge color="blue">{data.value.msg || ' unknown'}</Badge> */}
               <p><h1>Activating ventilation system!</h1></p>
-              <br/><Icon name="angle-down" size="large"/>
+              <br/><Icon name="angle-up" size="large"/>
             </>
           ),
           id: nextId++
-        }
+        },
+        ...messages
       ]
     );
   }
