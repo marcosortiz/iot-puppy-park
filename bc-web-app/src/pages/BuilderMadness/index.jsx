@@ -278,13 +278,13 @@ const BuilderMadness = () => {
       breadcrumbs={<Breadcrumbs />} // define these values in /breadcrumbs/index.js
       content={
         <ContentLayout
-          header={
-            <PageHeader
-              buttons={[{ text: 'My Bittles', href: '/my-bittles' }]}
-              // buttons={[{ text: 'Edit' }, { text: 'Delete' }]}
-              // loadHelpPanelContent={this.loadHelpPanelContent.bind(this)}
-            />
-          }
+          // header={
+          //   <PageHeader
+          //     buttons={[{ text: 'My Bittles', href: '/my-bittles' }]}
+          //     // buttons={[{ text: 'Edit' }, { text: 'Delete' }]}
+          //     // loadHelpPanelContent={this.loadHelpPanelContent.bind(this)}
+          //   />
+          // }
         >
           <SpaceBetween size="l">
             <BittleDeviceDetailsTable isInProgress />
