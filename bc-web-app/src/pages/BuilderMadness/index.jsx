@@ -123,12 +123,20 @@ const BuilderMadness = () => {
       ]
     );
   }
+  
+  const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-  function takeAction(event) {
+  async function takeAction(event) {
     if(event === 'pipe') {
-      PubSub.publish('bittles-global/sub', { message: 'khi' });
+      for (let index = 0; index < 3; index++) {
+        PubSub.publish('bittles-global/sub', { message: 'khi' });
+        await sleepNow(3300);
+      }
     } else if (event === 'co2') {
-      PubSub.publish('bittles-global/sub', { message: 'kck' });
+      for (let index = 0; index < 3; index++) {
+        PubSub.publish('bittles-global/sub', { message: 'kck' });
+        await sleepNow(3300);
+      }
     }
   }
 
@@ -382,14 +390,6 @@ const BuilderMadness = () => {
           </ColumnLayout>
         </Container>
       </Box>
-
-
-
-
-
-
-
-
           <Container
               className="custom-dashboard-container"
               header={
