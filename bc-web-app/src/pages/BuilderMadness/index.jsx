@@ -71,10 +71,8 @@ const BuilderMadness = () => {
   let nextId = 0;
 
   function handleMessage(data) {
-    console.log(data.value.event);
     if (data.value.event === 'fire') {
       setFireEventsCounter(c => c + 1);
-      console.log('pipe');
     } else if (data.value.event === 'pipe') {
       setPipeEventsCounter(c => c + 1);
     } else if(data.value.event === 'co2') {
@@ -94,7 +92,7 @@ const BuilderMadness = () => {
           content: (
             <>
               event: <Badge color="blue">{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
-              <p><h1>{eventStr} event detected!</h1></p>
+              <h1>{eventStr} event detected!</h1>
               <br/><Icon name="angle-up" size="large"/>
             </>
           ),
@@ -111,8 +109,6 @@ const BuilderMadness = () => {
           type: "info",
           content: (
             <>
-              {/* How to handle {data.value.event} events? */}
-              {/* Offer containment and safety recommendations and assist with incident analysis for {data.value.event} events. */}
               <h1>Requesting AGEIS assistance for {data.value.event || ' unknown'} event.</h1>
               <br/><Icon name="angle-up" size="large"/>
             </>
@@ -127,15 +123,13 @@ const BuilderMadness = () => {
   const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
   async function takeAction(event) {
-    if(event === 'pipe') {
+    let sleepTime = 3300;
+    if (event === 'pipe' || event === 'co2') {
+      let msg = (event === 'pipe') ? 'khi' : 'kck';
       for (let index = 0; index < 3; index++) {
-        PubSub.publish('bittles-global/sub', { message: 'khi' });
-        await sleepNow(3300);
-      }
-    } else if (event === 'co2') {
-      for (let index = 0; index < 3; index++) {
-        PubSub.publish('bittles-global/sub', { message: 'kck' });
-        await sleepNow(3300);
+        let visible = (index == 0) ? true : false;
+        PubSub.publish('bittles-global/sub', { message: msg, visible: visible });
+        await sleepNow(sleepTime);
       }
     }
   }
@@ -150,16 +144,14 @@ const BuilderMadness = () => {
             content: (
               <>
                 event: <Badge>{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
-                {/* <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p> */}
-                <p><h2>AGEIS Recommendations</h2></p>
-                <p><h3>{data.value.msg || 'unknown'}</h3></p>
-                <p>
-                  <strong>Sources:</strong>
-                  <ul>
-                    <li>https://www.osha.gov/sites/default/files/2019-03/fireprotection.pdf</li>
-                    <li>https://www.oilspillprevention.org/-/media/Oil-Spill-Prevention/spillprevention/r-and-d/inland/ngl-lpg-response-guide.pdf</li>
-                  </ul>
-                </p>
+                <h2>AGEIS Recommendations</h2>
+                {data.value.msg || 'unknown'}
+                <p><strong>Sources:</strong></p>
+                <ul>
+                  <li>https://www.osha.gov/sites/default/files/2019-03/fireprotection.pdf</li>
+                  <li>https://www.oilspillprevention.org/-/media/Oil-Spill-Prevention/spillprevention/r-and-d/inland/ngl-lpg-response-guide.pdf</li>
+                </ul>
+                
                 <br/><Icon name="angle-up" size="large"/>
               </>
             ),
@@ -178,15 +170,14 @@ const BuilderMadness = () => {
               <>
                 event: <Badge color="blue">{data.value.event || ' unknown'}</Badge> | source: <Badge>cooling fan camera 54</Badge> | location: <Badge>{data.value.location || 'unknown'}</Badge>
                 {/* <p>msg: <Badge>{data.value.msg || 'unknown'}</Badge></p> */}
-                <p><h2>AGEIS Recommendations</h2></p>
-                <p><h3>{data.value.msg || 'unknown'}</h3></p>
-                <p>
-                  <strong>Sources:</strong>
-                  <ul>
-                    <li>https://www.osha.gov/sites/default/files/2019-03/fireprotection.pdf</li>
-                    <li>https://www.oilspillprevention.org/-/media/Oil-Spill-Prevention/spillprevention/r-and-d/inland/ngl-lpg-response-guide.pdf</li>
-                  </ul>
-                </p>
+                <h2>AGEIS Recommendations</h2>
+                {data.value.msg || 'unknown'}
+
+                <p><strong>Sources:</strong></p>
+                <ul>
+                  <li>https://www.osha.gov/sites/default/files/2019-03/fireprotection.pdf</li>
+                  <li>https://www.oilspillprevention.org/-/media/Oil-Spill-Prevention/spillprevention/r-and-d/inland/ngl-lpg-response-guide.pdf</li>
+                </ul>
                 <br/><Icon name="angle-up" size="large"/>
               </>
             ),
@@ -240,7 +231,9 @@ const BuilderMadness = () => {
   }
 
   function handleGlobalDogMessage(data) {
-    console.log(data);
+    if (!data.value.visible){
+      return;
+    };
     setMessages(messages =>
       [
         {
@@ -248,8 +241,7 @@ const BuilderMadness = () => {
           type: "success",
           content: (
             <>
-              {/* message: <Badge color="blue">{data.value.message || ' unknown'}</Badge> */}
-              <p><h1>Deploying remote autonomous mitigation systems!</h1></p>
+              <h1>Deploying remote autonomous mitigation systems!</h1>
               <br/><Icon name="angle-up" size="large"/>
             </>
           ),
@@ -270,8 +262,7 @@ const BuilderMadness = () => {
           type: "success",
           content: (
             <>
-              {/* message: <Badge color="blue">{data.value.msg || ' unknown'}</Badge> */}
-              <p><h1>Activating ventilation system!</h1></p>
+              <h1>Activating ventilation system!</h1>
               <br/><Icon name="angle-up" size="large"/>
             </>
           ),
